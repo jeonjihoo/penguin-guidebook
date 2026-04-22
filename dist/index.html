@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IDE-ONLINE EASY GUIDE BOOK</title>
+    <script type="module" crossorigin src="/assets/index-Bnqd6zqt.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BZI82Otf.css">
+  </head>
+  <body>
+    <div id="toastRoot" class="toast-root"></div>
+
+    <div id="appShell" class="app-shell theme-white">
+      <section id="launcherView" class="view active launcher-view">
+        <div class="launcher-card gradient-card compact-launcher">
+          <div class="launcher-top-row">
+            <div class="launcher-theme-box">
+              <label class="small-label">테마</label>
+              <select id="launcherThemeSelect" class="select compact"></select>
+            </div>
+            <button id="launcherAdminButton" class="button mini outline">Admin</button>
+          </div>
+          <div class="launcher-title-block">
+            <h1>IDE-ONLINE EASY GUIDE BOOK</h1>
+            <p>이데온라인 유저공략 모음집</p>
+          </div>
+          <div class="launcher-actions">
+            <button id="openGuideButton" class="button primary huge">가이드북 확인하기</button>
+          </div>
+          <div class="launcher-footer">
+            <span id="launcherVersionText">v1.8.0</span>
+            <span>made by Penguinvlrt for IDE ONLINE</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="nicknameEntryView" class="view">
+        <div class="page-card narrow-card compact-page centered-page-card">
+          <div class="page-topbar slim-topbar">
+            <div class="topbar-left compact-gap">
+              <button class="button icon outline back-btn" aria-label="뒤로가기">‹</button>
+              <div>
+                <h2 class="page-title small">마크 닉네임 설정</h2>
+                <p class="page-subtitle">최초 1회 설정 후에도 언제든 변경할 수 있습니다.</p>
+              </div>
+            </div>
+            <div class="topbar-right">
+              <select id="nicknameThemeSelect" class="select compact"></select>
+            </div>
+          </div>
+          <form id="nicknameEntryForm" class="form-card compact-form">
+            <label class="field">
+              <span>닉네임</span>
+              <input id="nicknameEntryInput" class="input" type="text" placeholder="영문 / 숫자 / 밑줄만 가능" autocomplete="off" />
+            </label>
+            <div id="nicknameEntryMessage" class="inline-message"></div>
+            <div class="actions-row">
+              <button id="cancelNicknameButton" class="button outline" type="button">취소</button>
+              <button class="button primary" type="submit">입장하기</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="guideHomeView" class="view">
+        <div class="page-card compact-page shell-card">
+          <div class="page-topbar slim-topbar">
+            <div class="topbar-left compact-gap">
+              <button id="globalBackButton" class="button icon outline" aria-label="뒤로가기">‹</button>
+              <div>
+                <h2 class="page-title small">이데온라인 유저공략 모음집</h2>
+                <p class="page-subtitle">카테고리를 눌러 공략을 확인하세요.</p>
+              </div>
+            </div>
+            <div class="topbar-right">
+              <span id="viewerLabel" class="viewer-chip compact-chip hidden"></span>
+              <select id="innerThemeSelect" class="select compact"></select>
+            </div>
+          </div>
+
+          <div class="guide-layout unified-layout">
+            <div class="guide-main main-scroll">
+              <div class="search-panel compact-panel">
+                <div class="search-row compact-search-row">
+                  <div class="search-input-wrap">
+                    <input id="guideSearchInput" class="input" type="text" placeholder="제목 / 내용 / 별칭으로 검색" autocomplete="off" />
+                    <div id="searchSuggestions" class="suggestion-box hidden"></div>
+                  </div>
+                  <select id="searchModeSelect" class="select">
+                    <option value="title_content">제목 + 내용</option>
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                  </select>
+                  <button id="runSearchButton" class="button primary">검색</button>
+                </div>
+                <div id="searchMessage" class="inline-message"></div>
+              </div>
+
+              <div class="section-block compact-panel">
+                <div class="section-header">
+                  <h3>카테고리</h3>
+                  <span class="muted">빠르게 진입</span>
+                </div>
+                <div id="categoryGrid" class="category-grid compact-grid"></div>
+              </div>
+
+              <div id="homeBottomNotices" class="section-block compact-panel hidden">
+                <div class="section-header"><h3>공지</h3></div>
+                <div id="noticeList" class="notice-list"></div>
+              </div>
+            </div>
+
+            <aside class="guide-sidebar side-scroll">
+              <div class="section-block compact-panel">
+                <div class="section-header"><h3>메뉴</h3></div>
+                <div class="sidebar-stack compact-sidebar-stack">
+                  <button id="guideNoticeNavButton" class="button outline sidebar-btn">공지사항</button>
+                  <button id="favoritesNavButton" class="button outline sidebar-btn">즐겨찾기</button>
+                  <button id="suggestionNavButton" class="button outline sidebar-btn">요청사항 건의</button>
+                  <button id="changeNicknameButton" class="button outline sidebar-btn">닉네임 변경</button>
+                  <button id="guideAdminToolsButton" class="button outline sidebar-btn">Admin</button>
+                  <button id="guideLogoutButton" class="button outline hidden sidebar-btn">로그아웃</button>
+                </div>
+              </div>
+              <div class="section-block compact-panel">
+                <div class="section-header">
+                  <h3>공지사항</h3>
+                  <button id="noticePreviewMoreButton" class="button mini outline" type="button">더보기</button>
+                </div>
+                <div id="noticePreviewList" class="notice-list compact-notice-list"></div>
+              </div>
+              <div class="section-block compact-panel">
+                <div class="section-header"><h3>최근 기록</h3></div>
+                <div id="homeStats" class="stats-grid compact-stats"></div>
+                <div id="onlineUsersCounts" class="small-label sidebar-meta"></div>
+                <div id="onlineUsersList" class="user-list compact-user-list"></div>
+                <div class="sidebar-note">연결된 운영 모드에 따라 접속 현황이 자동 반영됩니다.</div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="categoryView" class="view">
+        <div class="page-card compact-page shell-card">
+          <div class="page-topbar slim-topbar">
+            <div class="topbar-left compact-gap">
+              <button class="button icon outline back-btn" aria-label="뒤로가기">‹</button>
+              <div>
+                <h2 id="categoryTitle" class="page-title small"></h2>
+                <p id="categorySubtitle" class="page-subtitle"></p>
+              </div>
+            </div>
+            <div class="topbar-right">
+              <span id="categoryViewerLabel" class="viewer-chip compact-chip hidden"></span>
+              <select id="categoryThemeSelect" class="select compact"></select>
+            </div>
+          </div>
+          <div class="guide-layout unified-layout">
+            <div class="guide-main main-scroll">
+              <div id="categoryPostList" class="post-list compact-post-list dense-post-list"></div>
+            </div>
+            <aside class="guide-sidebar side-scroll">
+              <div class="section-block compact-panel">
+                <div class="section-header"><h3>메뉴</h3></div>
+                <div class="sidebar-stack">
+                  <button id="categoryHomeButton" class="button outline sidebar-btn">홈</button>
+                  <button id="categoryNoticeButton" class="button outline sidebar-btn">공지사항</button>
+                  <button id="categoryFavoritesButton" class="button outline sidebar-btn">즐겨찾기</button>
+                  <button id="categorySuggestionsButton" class="button outline sidebar-btn">요청사항 건의</button>
+                  <button id="categoryNicknameButton" class="button outline sidebar-btn">닉네임 변경</button>
+                  <button id="categoryAdminToolsButton" class="button outline sidebar-btn">Admin</button>
+                  <button id="categoryLogoutButton" class="button outline hidden sidebar-btn">로그아웃</button>
+                </div>
+              </div>
+              <div class="section-block compact-panel">
+                <div class="section-header"><h3>최근 기록</h3></div>
+                <div id="categoryOnlineUsersCounts" class="small-label"></div>
+                <div id="categoryOnlineUsersList" class="user-list compact-user-list"></div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="postView" class="view">
+        <div class="page-card compact-page shell-card post-card-view">
+          <div class="page-topbar slim-topbar">
+            <div class="topbar-left compact-gap">
+              <button class="button icon outline back-btn" aria-label="뒤로가기">‹</button>
+              <div>
+                <h2 id="postCategoryLabel" class="page-subtitle"></h2>
+                <h1 id="postTitle" class="post-title compact-post-title"></h1>
+              </div>
+            </div>
+            <div class="topbar-right wrap">
+              <select id="postThemeSelect" class="select compact"></select>
+              <button id="toggleFavoriteButton" class="button outline">☆ 즐겨찾기</button>
+              <button id="changeNicknameFromPostButton" class="button outline">닉네임 변경</button>
+              <button id="openPostEditButton" class="button outline hidden">✎ 수정</button>
+              <button id="postAdminToolsButton" class="button outline">Admin</button>
+              <button id="postLogoutButton" class="button outline hidden">로그아웃</button>
+            </div>
+          </div>
+          <div class="post-scroll">
+            <p id="postSummary" class="post-summary"></p>
+            <div id="postMeta" class="meta-row"></div>
+            <div id="postContentBlocks" class="content-blocks"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="favoritesView" class="view">
+        <div class="page-card compact-page shell-card">
+          <div class="page-topbar slim-topbar">
+            <div class="topbar-left compact-gap">
+              <button class="button icon outline back-btn" aria-label="뒤로가기">‹</button>
+              <div>
+                <h2 class="page-title small">즐겨찾기</h2>
+                <p class="page-subtitle">다시 보고 싶은 게시글</p>
+              </div>
+            </div>
+            <div class="topbar-right">
+              <span id="favoritesViewerLabel" class="viewer-chip compact-chip hidden"></span>
+              <select id="favoritesThemeSelect" class="select compact"></select>
+              <button id="favoritesNoticeButton" class="button outline">공지사항</button>
+              <button id="favoritesChangeNicknameButton" class="button outline">닉네임 변경</button>
+              <button id="favoritesAdminToolsButton" class="button outline">Admin</button>
+              <button id="favoritesLogoutButton" class="button outline hidden">로그아웃</button>
+            </div>
+          </div>
+          <div class="favorites-scroll main-scroll">
+            <div id="favoritesList" class="post-list compact-post-list dense-post-list"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="suggestionsView" class="view">
+        <div class="page-card compact-page shell-card">
+          <div class="page-topbar slim-topbar">
+            <div class="topbar-left compact-gap">
+              <button class="button icon outline back-btn" aria-label="뒤로가기">‹</button>
+              <div>
+                <h2 class="page-title small">요청사항 건의</h2>
+                <p class="page-subtitle">닉네임은 자동 입력되며 변경도 가능합니다.</p>
+              </div>
+            </div>
+            <div class="topbar-right">
+              <span id="suggestionsViewerLabel" class="viewer-chip compact-chip hidden"></span>
+              <select id="suggestionsThemeSelect" class="select compact"></select>
+              <button id="suggestionsNoticeButton" class="button outline">공지사항</button>
+              <button id="suggestionsChangeNicknameButton" class="button outline">닉네임 변경</button>
+              <button id="suggestionsAdminToolsButton" class="button outline">Admin</button>
+              <button id="suggestionsLogoutButton" class="button outline hidden">로그아웃</button>
+            </div>
+          </div>
+
+          <div class="main-scroll">
+            <form id="suggestionForm" class="form-card compact-form">
+              <div class="form-grid two-col">
+                <label class="field">
+                  <span>마크 닉네임</span>
+                  <input id="suggestionNickname" class="input" type="text" readonly />
+                </label>
+                <label class="field">
+                  <span>레벨</span>
+                  <input id="suggestionLevel" class="input" type="text" placeholder="예: 77" />
+                </label>
+              </div>
+              <label class="field">
+                <span>요청 제목</span>
+                <input id="suggestionTitle" class="input" type="text" placeholder="예: 카날로아 공략 정리 부탁" />
+              </label>
+              <label class="field">
+                <span>요청 내용</span>
+                <textarea id="suggestionContent" class="textarea" rows="7" placeholder="추가가 필요하다고 느낀 내용을 적어주세요."></textarea>
+              </label>
+              <div id="suggestionFormMessage" class="inline-message"></div>
+              <div class="actions-row">
+                <button type="submit" class="button primary">요청 보내기</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section id="adminLoginView" class="view">
+        <div class="page-card narrow-card compact-page centered-page-card">
+          <div class="page-topbar slim-topbar">
+            <div class="topbar-left compact-gap">
+              <button class="button icon outline back-btn" aria-label="뒤로가기">‹</button>
+              <div>
+                <h2 class="page-title small">관리자 로그인</h2>
+                <p class="page-subtitle">로컬 모드에서는 아이디, 공용 운영 모드에서는 이메일과 비밀번호를 입력하세요.</p>
+              </div>
+            </div>
+            <div class="topbar-right">
+              <select id="adminLoginThemeSelect" class="select compact"></select>
+            </div>
+          </div>
+          <form id="adminLoginForm" class="form-card compact-form" autocomplete="off">
+            <label class="field">
+              <span>아이디 / 이메일</span>
+              <input id="adminLoginId" class="input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" name="admin_login_id_v10" />
+            </label>
+            <label class="field">
+              <span>비밀번호</span>
+              <input id="adminLoginPassword" class="input" type="password" autocomplete="new-password" autocapitalize="off" spellcheck="false" name="admin_login_password_v10" />
+            </label>
+            <label class="checkbox-row">
+              <input id="adminRememberId" type="checkbox" />
+              <span>아이디 / 이메일 기억</span>
+            </label>
+            <div id="adminLoginMessage" class="inline-message"></div>
+            <div class="actions-row">
+              <button type="submit" class="button primary">로그인</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="adminView" class="view">
+        <div class="page-card compact-page shell-card">
+          <div class="page-topbar slim-topbar">
+            <div class="topbar-left compact-gap">
+              <button class="button icon outline back-btn" aria-label="뒤로가기">‹</button>
+              <div>
+                <h2 class="page-title small">관리 도구</h2>
+                <p id="adminTopIdentity" class="page-subtitle"></p>
+              </div>
+            </div>
+            <div class="topbar-right wrap">
+              <span id="adminViewerLabel" class="viewer-chip admin-chip compact-chip"></span>
+              <select id="adminThemeSelect" class="select compact"></select>
+              <button id="adminLogoutButton" class="button outline">로그아웃</button>
+            </div>
+          </div>
+
+          <div class="guide-layout unified-layout">
+            <div class="guide-main main-scroll">
+              <div class="admin-tabs compact-admin-tabs">
+                <button class="button outline admin-tab active" data-tab="overview" type="button">개요</button>
+                <button class="button outline admin-tab" data-tab="posts" type="button">게시글</button>
+                <button class="button outline admin-tab" data-tab="notices" type="button">공지</button>
+                <button class="button outline admin-tab" data-tab="suggestions" type="button">건의함</button>
+                <button class="button outline admin-tab" data-tab="admins" type="button">관리자 계정</button>
+              </div>
+
+              <div id="adminOverviewTab" class="admin-tab-panel active">
+                <div id="adminStats" class="stats-grid compact-stats"></div>
+                <div class="section-header compact-section-header">
+                  <div id="adminOverviewMeta" class="small-label muted"></div>
+                  <button id="adminSyncNowButton" class="button outline compact" type="button">지금 동기화</button>
+                </div>
+                <div class="section-block compact-panel">
+                  <div class="section-header"><h3>운영 도구</h3></div>
+                  <div class="actions-row wrap">
+                    <button id="exportDataButton" class="button outline" type="button">백업 내보내기</button>
+                    <label class="button outline file-button">백업 불러오기<input id="importDataInput" type="file" accept="application/json" /></label>
+                    <button id="resetSeedButton" class="button danger-soft" type="button">샘플 데이터 초기화</button>
+                  </div>
+                </div>
+                <div class="section-block compact-panel">
+                  <div class="section-header">
+                    <h3>카테고리 관리</h3>
+                    <button id="addCategoryButton" class="button primary" type="button">카테고리 추가</button>
+                  </div>
+                  <div id="adminCategoryList" class="post-list compact-post-list dense-post-list"></div>
+                </div>
+                <div class="section-block compact-panel">
+                  <div class="section-header"><h3>최근 작업 로그</h3></div>
+                  <div id="adminLogList" class="log-list"></div>
+                </div>
+              </div>
+
+              <div id="adminPostsTab" class="admin-tab-panel">
+                <div class="admin-split compact-admin-split unified-admin-split v16-admin-split">
+                  <div class="section-block compact-panel list-panel">
+                    <div class="section-header">
+                      <h3>게시글 목록</h3>
+                      <button id="newPostButton" class="button primary" type="button">새 글</button>
+                    </div>
+                    <div id="adminPostList" class="post-list compact-post-list dense-post-list"></div>
+                  </div>
+                  <div class="section-block compact-panel editor-panel v16-editor-panel">
+                    <div id="postEditorEmpty" class="empty-state">왼쪽에서 편집할 글을 선택하거나 새 글을 만드세요.</div>
+                    <form id="postEditorForm" class="form-card hidden compact-form v16-editor-form">
+                      <div class="editor-top-grid">
+                        <label class="field compact-field"><span>카테고리</span><select id="postEditorCategory" class="select compact"></select></label>
+                        <label class="field"><span>제목</span><div id="postEditorTitleRich" class="rich-editor title-rich-editor compact-title-editor" contenteditable="true"></div></label>
+                      </div>
+                      <div class="editor-controls compact-title-tools v16-tools-row">
+                        <button id="titleBoldButton" class="button outline mini" type="button">B</button>
+                        <button id="titleItalicButton" class="button outline mini" type="button">I</button>
+                        <button id="titleUnderlineButton" class="button outline mini" type="button">U</button>
+                        <input id="postEditorTitleColor" class="input color-input mini-color" type="color" value="#162033" />
+                      </div>
+                      <label class="field compact-field"><span>요약</span><input id="postEditorSummary" class="input" type="text" /></label>
+                      <div class="section-subheader compact-subheader">
+                        <h3>본문</h3>
+                        <div class="actions-row wrap">
+                          <button id="addImageBlockButton" class="button outline" type="button">이미지 삽입</button>
+                          <button id="addVideoBlockButton" class="button outline" type="button">동영상 삽입</button>
+                          <button id="previewPostButton" class="button outline" type="button">미리보기</button>
+                        </div>
+                      </div>
+                      <div class="editor-controls compact-title-tools v16-tools-row body-format-tools">
+                        <button id="bodyBoldButton" class="button outline mini" type="button">B</button>
+                        <button id="bodyItalicButton" class="button outline mini" type="button">I</button>
+                        <button id="bodyUnderlineButton" class="button outline mini" type="button">U</button>
+                        <input id="postEditorBodyColor" class="input color-input mini-color" type="color" value="#111827" />
+                        <input id="selectedMediaWidth" class="input compact-inline-input" type="text" placeholder="선택 미디어 너비 (예: 420px / 70%)" />
+                        <button id="applySelectedMediaWidthButton" class="button outline mini" type="button">크기 적용</button>
+                      </div>
+                      <div id="postEditorBody" class="rich-editor article-editor unified-body-editor" contenteditable="true"></div>
+                      <div id="editorInsertPanel" class="editor-insert-panel hidden">
+                        <strong id="editorInsertTitle">미디어 삽입</strong>
+                        <div class="insert-row">
+                          <input id="mediaInsertUrl" class="input" type="text" placeholder="링크를 넣어주세요" />
+                          <button id="confirmInsertByUrlButton" class="button outline mini" type="button">링크 삽입</button>
+                          <label class="button outline mini file-button">파일 선택<input id="mediaFileInput" type="file" accept="image/*,video/*" /></label>
+                          <button id="cancelInsertPanelButton" class="button outline mini" type="button">닫기</button>
+                        </div>
+                        <div class="small-label">커서 위치에 삽입됩니다. 이미지/영상은 클릭 후 크기를 조절할 수 있습니다.</div>
+                      </div>
+                      <div id="postEditorMessage" class="inline-message"></div>
+                      <div class="actions-row wrap">
+                        <button id="deletePostButton" class="button danger hidden" type="button">삭제</button>
+                        <button id="cancelPostEditButton" class="button outline" type="button">취소</button>
+                        <button class="button primary" type="submit">저장</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <div id="adminNoticesTab" class="admin-tab-panel">
+                <div class="admin-split compact-admin-split unified-admin-split">
+                  <div class="section-block compact-panel list-panel">
+                    <div class="section-header">
+                      <h3>공지 목록</h3>
+                      <button id="newNoticeButton" class="button primary" type="button">새 공지</button>
+                    </div>
+                    <div id="adminNoticeList" class="notice-list"></div>
+                  </div>
+                  <div class="section-block compact-panel editor-panel">
+                    <div id="noticeEditorEmpty" class="empty-state">왼쪽에서 공지를 선택하거나 새 공지를 만드세요.</div>
+                    <form id="noticeEditorForm" class="form-card hidden compact-form">
+                      <label class="field"><span>제목</span><input id="noticeEditorTitle" class="input" type="text" /></label>
+                      <label class="field"><span>내용</span><textarea id="noticeEditorContent" class="textarea" rows="10"></textarea></label>
+                      <div id="noticeEditorMessage" class="inline-message"></div>
+                      <div class="actions-row wrap">
+                        <button id="deleteNoticeButton" class="button danger hidden" type="button">삭제</button>
+                        <button id="cancelNoticeEditButton" class="button outline" type="button">취소</button>
+                        <button class="button primary" type="submit">저장</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <div id="adminSuggestionsTab" class="admin-tab-panel">
+                <div class="section-block compact-panel">
+                  <div class="section-header"><h3>들어온 건의</h3></div>
+                  <div id="adminSuggestionList" class="suggestion-list"></div>
+                </div>
+              </div>
+
+              <div id="adminAdminsTab" class="admin-tab-panel">
+                <div class="admin-split compact-admin-split unified-admin-split">
+                  <div class="section-block compact-panel list-panel">
+                    <div class="section-header"><h3>관리자 목록</h3></div>
+                    <div id="adminAccountList" class="admin-account-list"></div>
+                  </div>
+                  <div class="section-block compact-panel editor-panel">
+                    <div id="adminAccountEmpty" class="empty-state">왼쪽에서 관리자를 선택하세요.</div>
+                    <form id="adminCreateForm" class="form-card hidden compact-form" autocomplete="off">
+                      <label class="field"><span>닉네임</span><input id="adminCreateNickname" class="input" type="text" /></label>
+                      <label class="field"><span>아이디</span><input id="adminCreateUsername" class="input" type="text" placeholder="로컬 모드 전용" /></label>
+                      <label class="field"><span>비밀번호</span><input id="adminCreatePassword" class="input" type="password" autocomplete="new-password" placeholder="로컬 모드 전용" /></label>
+                      <label class="field"><span>비밀번호 확인</span><input id="adminCreatePasswordConfirm" class="input" type="password" autocomplete="new-password" placeholder="로컬 모드 전용" /></label>
+                      <div id="adminCreateMessage" class="inline-message"></div>
+                      <div class="actions-row wrap">
+                        <button id="cancelAdminCreateButton" class="button outline" type="button">취소</button>
+                        <button class="button primary" type="submit">관리자 생성</button>
+                      </div>
+                    </form>
+
+                    <form id="adminColorForm" class="form-card hidden compact-form">
+                      <div class="field"><span>대상 관리자</span><strong id="adminColorTargetName"></strong></div>
+                      <label class="field"><span>표시 색상</span><input id="adminColorInput" class="input color-input" type="color" /></label>
+                      <div id="adminColorMessage" class="inline-message"></div>
+                      <div class="actions-row wrap">
+                        <button id="openAdminCreateButton" class="button outline" type="button">관리자 생성</button>
+                        <button id="deleteAdminButton" class="button danger hidden" type="button">계정 삭제</button>
+                        <button class="button primary" type="submit">색상 저장</button>
+                      </div>
+                    </form>
+
+                    <form id="adminPasswordForm" class="form-card hidden compact-form" autocomplete="off">
+                      <div class="field"><span>비밀번호 변경 대상</span><strong id="adminPasswordTargetName"></strong></div>
+                      <div id="adminPasswordHint" class="small-label"></div>
+                      <label class="field"><span>현재 비밀번호</span><input id="adminCurrentPassword" class="input" type="password" autocomplete="current-password" /></label>
+                      <label class="field"><span>새 비밀번호</span><input id="adminNewPassword" class="input" type="password" autocomplete="new-password" /></label>
+                      <label class="field"><span>새 비밀번호 확인</span><input id="adminNewPasswordConfirm" class="input" type="password" autocomplete="new-password" /></label>
+                      <div id="adminPasswordMessage" class="inline-message"></div>
+                      <div class="actions-row wrap">
+                        <button class="button primary" type="submit">비밀번호 변경</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="guide-sidebar side-scroll">
+              <div class="section-block compact-panel">
+                <div class="section-header"><h3>메뉴</h3></div>
+                <div class="sidebar-stack">
+                  <button id="adminHomeButton" class="button outline sidebar-btn" type="button">가이드 홈</button>
+                  <button id="adminFavoritesButton" class="button outline sidebar-btn" type="button">즐겨찾기</button>
+                  <button id="adminNoticeButton" class="button outline sidebar-btn" type="button">공지사항</button>
+                  <button id="adminSuggestionsButton" class="button outline sidebar-btn" type="button">요청사항 건의</button>
+                  <button id="adminNicknameButton" class="button outline sidebar-btn" type="button">닉네임 변경</button>
+                  <button id="adminLogoutButtonSide" class="button outline sidebar-btn" type="button">로그아웃</button>
+                </div>
+              </div>
+              <div class="section-block compact-panel">
+                <div class="section-header"><h3>최근 기록</h3></div>
+                <div id="adminSidebarStats" class="stats-grid compact-stats"></div>
+                <div id="adminOnlineCounts" class="small-label sidebar-meta"></div>
+                <div id="adminOnlineUsers" class="user-list compact-user-list"></div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    
+      <section id="noticesView" class="view">
+        <div class="page-card compact-page shell-card">
+          <div class="page-topbar slim-topbar">
+            <div class="topbar-left compact-gap">
+              <button class="button icon outline back-btn" aria-label="뒤로가기">‹</button>
+              <div>
+                <h2 class="page-title small">공지사항</h2>
+                <p class="page-subtitle">중요한 안내를 빠르게 확인하세요.</p>
+              </div>
+            </div>
+            <div class="topbar-right">
+              <span id="noticesViewerLabel" class="viewer-chip compact-chip hidden"></span>
+              <select id="noticesThemeSelect" class="select compact"></select>
+            </div>
+          </div>
+          <div class="guide-layout unified-layout">
+            <div class="guide-main main-scroll">
+              <div id="noticesList" class="notice-list dense-notice-list"></div>
+            </div>
+            <aside class="guide-sidebar side-scroll">
+              <div class="section-block compact-panel">
+                <div class="section-header"><h3>메뉴</h3></div>
+                <div class="sidebar-stack compact-sidebar-stack">
+                  <button id="noticesHomeButton" class="button outline sidebar-btn">홈</button>
+                  <button id="noticesFavoritesButton" class="button outline sidebar-btn">즐겨찾기</button>
+                  <button id="noticesSuggestionsButton" class="button outline sidebar-btn">요청사항 건의</button>
+                  <button id="noticesChangeNicknameButton" class="button outline sidebar-btn">닉네임 변경</button>
+                  <button id="noticesAdminToolsButton" class="button outline sidebar-btn">Admin</button>
+                  <button id="noticesLogoutButton" class="button outline hidden sidebar-btn">로그아웃</button>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="noticeDetailView" class="view">
+        <div class="page-card compact-page shell-card post-card-view">
+          <div class="page-topbar slim-topbar">
+            <div class="topbar-left compact-gap">
+              <button class="button icon outline back-btn" aria-label="뒤로가기">‹</button>
+              <div>
+                <h2 class="page-subtitle">공지사항</h2>
+                <h1 id="noticeDetailTitle" class="post-title compact-post-title"></h1>
+              </div>
+            </div>
+            <div class="topbar-right wrap">
+              <select id="noticeDetailThemeSelect" class="select compact"></select>
+              <button id="noticeDetailHomeButton" class="button outline">홈</button>
+              <button id="noticeDetailAdminToolsButton" class="button outline">Admin</button>
+              <button id="noticeDetailLogoutButton" class="button outline hidden">로그아웃</button>
+            </div>
+          </div>
+          <div class="post-scroll">
+            <p id="noticeDetailMeta" class="post-summary"></p>
+            <div id="noticeDetailContent" class="content-blocks"></div>
+          </div>
+        </div>
+      </section>
+
+    <div id="detailModal" class="modal-backdrop hidden" aria-hidden="true">
+      <div class="modal-card detail-modal-card">
+        <div class="modal-header">
+          <h3 id="detailModalTitle">상세 보기</h3>
+          <button id="detailModalClose" class="button icon outline" type="button" aria-label="닫기">✕</button>
+        </div>
+        <div id="detailModalBody" class="detail-modal-body"></div>
+      </div>
+    </div>
+
+    </div>
+  </body>
+</html>
